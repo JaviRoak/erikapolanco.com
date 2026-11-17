@@ -1,360 +1,339 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Erika Polanco</title>
-  <meta name="theme-color" content="#5E4F9C">
-  <style>
-    :root {
-      --principal: #5E4F9C;
-      --oscuro: #332E79;
-      --lila: #B9B3D5;
-      --bg: #F7F6FB;
-      --title: var(--oscuro);
-      --text: var(--principal);
-    }
-    @media (prefers-color-scheme: dark) {
-      :root {
-        --bg: #1E1A4A;
-        --title: #FFFFFF;
-        --text: var(--lila);
-      }
-    }
-    * { box-sizing: border-box; }
-    html, body { margin: 0; }
-    body {
-      min-height: 100vh;
-      min-height: 100svh;
-      display: grid;
-      place-items: center;
-      font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      text-align: center;
-      padding: 24px 16px;
-    }
-    main { width: 100%; max-width: 1100px; display: flex; flex-direction: column; align-items: center; gap: 28px; }
-    .wake { width: min(100%, calc((100svh - 190px) * 1.43)); min-width: min(100%, 320px); touch-action: none; cursor: crosshair; user-select: none; -webkit-user-select: none; }
-    .wake canvas { display: block; width: 100%; }
-    h1 { font-weight: 600; font-size: clamp(1.8rem, 4vw, 2.5rem); margin: 0; color: var(--title); letter-spacing: 0.01em; }
-    p { margin: 6px 0 0; color: var(--text); }
-  </style>
-</head>
-<body>
-  <main>
-    <div class="wake" id="wake" role="img" aria-label="Un escarabajo alado dibujado en puntos; el puntero deja una estela de caracteres a su paso">
-      <canvas id="wake-canvas" aria-hidden="true"></canvas>
-    </div>
-    <header>
-      <h1>Erika Polanco</h1>
-      <p>Portafolio en construcción</p>
-    </header>
-  </main>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Erika Polanco | Diseño gráfico e ilustración</title>
+    <meta
+      name="description"
+      content="Portafolio de Erika Polanco: identidad visual, ilustración, diseño editorial y packaging."
+    />
+    <link rel="icon" type="image/png" href="./assets/icon.PNG" />
+    <link rel="stylesheet" href="./style.css" />
+    <!-- Orden requerido: registrar la lógica antes de iniciar el runtime. -->
+    <script src="./i18n.js" defer></script>
+    <script src="./scripts.js" defer></script>
+    <script src="./support.js" defer></script>
+  </head>
+  <body>
+    <x-dc>
+      <div class="portfolio portfolio--intro">
+        <div class="intro-screen" aria-hidden="true"></div>
+        <div
+          ref="{{ cursorRef }}"
+          aria-hidden="true"
+          class="beetle-cursor"
+          style="width:{{ cursorSize }}; height:{{ cursorSize }}"
+        >
+          <svg
+            data-c="closed"
+            viewBox="-1200 -1250 2400 2500"
+            class="beetle-cursor__closed"
+          ></svg>
+          <img
+            data-c="open"
+            src="assets/gloriosa-alas.png"
+            alt=""
+            class="beetle-cursor__open"
+          />
+        </div>
 
-<script type="text/plain" id="beetle">
-                                                               @%#*%@                   @#*%@@
-                                             @@%             @@%*++@                    %#=+#@@              %@@
-                                           @@@@@@           @@%*+#@                      #%*+#%@            %%%@@@
-                                           @%@@@            @@##%%    @@   @@@@@@@   @@    #%#%@@            %@@%@
-                                           %@%+#@           %%%%@@@@ %@%@@#+====++#@%%@@ @@@@%%%            @#+#@@
-                                            @@#+#@               %@@@@%@#*++=====+++#@@@@@@@                %+*@@
-                                             %@%*%@@                @@@*#*++=====+**##@@@                @@%*%@@
-     @@@@@%%###%%%@@@@@                        %%@*#@              @%+*%##++=====+*##%++%@@             @#*@@@                        @@@@@%%%###%%@@@@@
- @@@##**+====+****#%%%**#@@@                    @%@%@@            @@@@@#%%*+====++*##%@@@@@            @@%@@@                    @@@#**#@%#***++====++*##%@@
-@#++++**##%%#*++=+++*###%%%###%@                 %%+==%@@         %@@%#%##***###***##%#%@@@         @@%==+%@                 @%%##%%%###**++==+*#%%#**+++=+#%
-%====+++******#######*++###%%%%*#@@             %@#**+=*%        @%*++++++========+=++++**#@        %*==**#@@             @@#*#@%%##*++*#######*****++++====#
-@*==++***+*%#+=+#%%*****#@%*#%%@@#+%@             %@#+==#@     @%+==++**+++=======++**++====#@      #==+#@@             @%**@@%%#*#@%***+*%%#+==#%*+***++==*@
-%#====+****#**%*+=====*#*+++#%#%@@%++%@@         %%###*=*%   @@*==++****++========++**#*++===*%@   %*=*#%#@@          @%*+%@@%#%%*++*##+====+*#*****++++===*%
- %#====++***###++*###*+===+*#**%%*+=*%#%@          %@@#*+%  @%+=++*##%#**+========++*#%%%*+++=+%@  @+*%@@@          @%#%*=+*%%**#**===+*###*++##****+++===*%
-  #%+=+++++*#**##=====++*%%%%***#@#+=#@@%#@         %@@@%@%@#==++##%%###+++=======++*#@%%%#*++==#@%@%@@@          @%#@@%=+#@%***#@%%#++=====*####*+++++++%@
-    %*==++******+*****+++=====+*%#+=*%@%+*%#%@        %%#*#%+++*#%@@%%##*+========++#%%%@@%%*+==+%#*#@@        @%%##=#@%*=+#%*+======++*****+******++==+%
-     %#+=+*###*++**###**#%%###+===#%#**#%+*%##%@@      #%@@*==+*#@@@@%%%#*++====++**#%@@@@%%**++=*@@@       @@%##%*+%%**#%%===+*###%%#**##**++*###*+=+#@
-       %%%+++++#%*=======++=++++#%@#+==+*#%##%%%*%@@     #%==+**%@@@@@%%%#*++===++*%%%@@@@%%#*++==%      @@%*#%%##%#*+==+#@%%++=++++=======+##+++++#@@
-         %%+====+***%%*+++++*##%%@@@#+===+**%%*##%%+#%@@@@%@@@@@@@@%*++#%#**+===+*##%#++*#@@@@@@@@@@@@@%**%%*#*%%*++===+#@@@%%%#*+++++*%%***++===+%@
-           %%++**+===++**####%#%%@=====*#******#%###*#%#*%#+=+%%#===*##%@@%#*****#%@@@##*===*%%*=+#%##%%**##%#**+***#*+====%%########*++===+**++%@
-             %%*==+*********+***#@%%%####****##%%%%%@@@@##++#%%#=*=+%%+=+%@#+===*#@%+==%%*=*=#@%#++##@@@@%%%%%##****####%%%@#***+********++==+%@
-                #%*+=+#@%#+====++#%===========+#@@%##@%**==%@%%=**=#%%====#@%*+*%@%====%%#=**=%@@%+=**%@#*%@@#+===========#%++====+*%@#+=++%%
-                   #%====+++*****+=+##%@@%%##+=+*##*%#*#==%@@@====+@@%==+==@%%%%%@+=++=#@@*====%@@@+=*#*%##%*+=+#%%%@@@##+=+******++====%@
-                     %+==++*+*+==+##%#*++*++*#*++##%*%#==%@@@+=##=%@@#+++++@#+=+#@*=++=*@@%=##=+@@@%==*%*%##++*##++*++*#@##*==+*+*+++=+%@
-                      %#==+++*%*=*#%*+**+*%+==+%#*###%==*@@@#====*@@@+++==@%#+=+*%@=++++@@@*====*@@@#==#%##*#%+=++%*+*+++##*=+%#=++==#@
-                        #@##+==++*#+=++##*##*%#*+#%#%==+%@@%+=##=%@@%++++#@@@@%%@@@#=+++#@@%=*#=+%@@@*==%###+*#%**#*##++=+#**+==+%*@%
-                           %@#+=+*+==*#*#*#***+**%*%*==#@@@#==*++@@@#++++%@%#*=+#%@@*+=+*@@@*+*==*@@@%+=+%###*+****####*==+*+=+#@@
-                              %%%*==#+*+**==+***%+@#+=+@@@@+=*+=#@@%*=++#@%++===++#@%++=*%@@#==*==%@@@*=+#@*%***++=+*+*+%==+%%@
-                                  %%%+++===+*++#*%%+==%@@@#=+%++%@@%+++*@@*+++++++*@@*++=#@@@++%+=*@@@%==+%@*#++++===+=+%%%
-                                     %%#*+==+=+##@#==+@@@@+====*@@@*+++@@@%#*+=+*#@@@@+++*@@@#=====@@@@*==#@##+=====**%@
-                                        #%@%%%%##@+==%@@@#=*@*+%@@@++=@@@%%#*+=+*#%@@@@=++%@@@+=@*=*@@@@==+@%#%%%%@%%
-                                        @@*=*@%#%%==+@@@@+====*@@@#++#@%@@%*+===++#@@@@#++*@@@#=====%@@@*==%@#%@#+*@@
-                                      @@#*+#@@%*@*==#@@@#=+%+=%@@@++*%@@%%*+=====+*#@@@%*++%@@@=+%*=#@@@%==*@##@@%+**@@
-                                      @%#@@@@%##@+++%@@@*=+*=*@@@#*+##@@@@%#++==+#%@@@@%#++*@@@#=*+=+%@@%++=@%#%%@@@%%@
-                                     @#*%@@@ @#%%*+*@@@%+====%@@@*+*#%@#*%%#*+=++#%%##@@##+*%@@@+====#@@@*++%%#@ %@%@*#@@
-                                  %%+#@@@    @*%#++*@@@#=#@+*@@@#*+%#@%#*#%%%%%%%%%#*#%@##++#@@@#+%%=*@@@#++#%*@    %@@#+#@
-                                 @%#@@       @#%**+#@@@+====%@@@*=%*%@@@%%**+====+#%%@@@%*%=#%@@%+===+%@@%++*@*@       %@#%@@
-                                @@@@@        @#%*+*%@@%=#@=*@@@%+###@%#@@%##*+=++*#%%@%#@##%+#@@@*=%#=#@@%*+*%#@        %@@@@
-                                @@@@@        #%**++@@@*====#@@@**@@@@#*%%*+*+++**++*%%##@@@@**%@@%+===*@@@++**%@        %@%@@
-                                %@@%@         %*+++@@@++*=+@@@#+##%@@@%%#*+++*+*+++*#%%@@@%##+#@@@*=*+=@@@*++*%         %@@@@
-                                  %%          %%*+*@@@==+=#@@%*#*+*@@@@@%##*+===+*#%%@@@@@#+*#*%@@%=++=%@@*++%@          %@
-                                               @%#+#@#=#++@@@#*@@@@@@#*%%%%#*+=+**#@@%**%@@@@@**%@@++#+*@%+*@@
-                                              @@**%*#*===#@@%+@    %%*##%####***####%%#*#@    @*#@@%===*#*%*+@@
-                                              @#=+#@%*===#@%*%      %%##%%*+=====+*%%#*%@      %*#%%===*%@#++#@
-                                             %%+=+*%@@%%++#+%@        #%###*++=++*%%#%@         %**+=#@@@%#+==%@
-                                            %@@%+=*%@@@ %@@@            %@%##*+**#%@@            %@@@ %@@@#++#@@@
-                                              %#*%#%@@@@                    %@%@@                    @@%@%#%##@
-                                             #@%@+%@@@@                                               %@@@@+@@%@
-                                              %@%%%@@%@@                                             %@@#%%%%@@
-                                               @#*@@                                                     #@*#@
-                                               @#%@                                                       @@#@
-                                              @%+*@@                                                     @@#+#@
-                                              @%+*@@@@@@@                                           %@@@@@@*+#@
-                                               @#@@@@@@@                                             %@@@@@@#@@
-                                                @@@@@@@%                                             %%@@#@@@
-                                                 %@@@                                                   %@@@
-</script>
+        <!-- NAV -->
+        <nav ref="{{ navRef }}" class="site-nav">
+          <a href="#inicio" class="site-nav__brand"
+            ><img
+              src="./assets/logo-mark.svg"
+              alt=""
+              class="site-nav__logo"
+            /><span class="site-nav__name">Erika Polanco</span></a
+          >
+          <button class="site-nav__toggle" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="site-menu"><span></span><span></span><span></span></button>
+          <div id="site-menu" class="site-nav__links">
+            <a href="#identidad" class="site-nav__link">Identidad</a>
+            <a href="#concepto" class="site-nav__link">Concepto</a>
+            <a href="#historia" class="site-nav__link">Historia</a>
+            <a href="#proyectos" class="site-nav__link">Proyectos</a>
+            <a href="#contacto" class="site-nav__link">Contacto</a>
+            <div class="site-nav__language" role="group" aria-label="Idioma">
+              <button type="button" data-lang="es" aria-pressed="true" aria-label="Español">ES</button>
+              <span aria-hidden="true">/</span>
+              <button type="button" data-lang="en" aria-pressed="false" aria-label="English">EN</button>
+            </div>
+          </div>
+        </nav>
 
-<script>
-/* ══ Estela ASCII ═══════════════════════════════════════════
-   El escarabajo dibujado en puntos de tinta: cada carácter del
-   dibujo original se vuelve un punto cuyo tamaño sigue su densidad
-   (@ el más lleno, = el más tenue), como un medio tono.
+        <!-- PORTADA -->
+        <section id="inicio" data-screen-label="01 Portada" class="hero">
+          <div
+            ref="{{ fallRef }}"
+            aria-hidden="true"
+            class="hero__stickers"
+          ></div>
+          <div class="hero__intro">
+            <div data-reveal="" class="hero__eyebrow">
+              Diseñadora gráfica &nbsp;|&nbsp; Ilustradora
+            </div>
+            <h1 data-reveal="" class="hero__title">
+              Ideas con intención,<br /><span class="text-purple"
+                >diseño con propósito.</span
+              >
+            </h1>
+          </div>
+          <div ref="{{ heroTextRef }}" class="hero__greeting">
+            <div class="hero__font">
+              <div class="hero__line"><div data-intro="0">¡Hola!</div></div>
+            </div>
+          </div>
+          <div class="hero__summary">
+            <p data-reveal="" class="hero__description">
+              Diseño identidades, ilustraciones y piezas editoriales donde cada
+              decisión tiene una razón.
+            </p>
+            <a href="#proyectos" class="hero__button">Ver proyectos</a>
+          </div>
+          <img
+            ref="{{ heroImgRef }}"
+            src="assets/erika-recorte.png"
+            alt="Erika Polanco"
+            class="hero__portrait"
+          />
+        </section>
 
-   El puntero arrastra una estela: justo bajo la mano los caracteres
-   se espesan al máximo y se quedan así mientras la mano descansa;
-   por el camino recorrido se adelgazan de nuevo, @ a # a + a un
-   punto, conforme la estela se enfría. Los glifos se inclinan hacia
-   la mano cuando está cerca. Al presionar sale un anillo.
+        <!-- MARQUEE -->
+        <div class="marquee">
+          <div class="marquee__track">
+            <sc-for list="{{ marquee }}" as="m" hint-placeholder-count="8">
+              <div class="marquee__item">
+                <span class="marquee__word">{{ m.word }}</span>
+                <img src="{{ m.icon }}" alt="" class="marquee__icon" />
+              </div>
+            </sc-for>
+          </div>
+        </div>
 
-   Cada celda guarda un número (el calor). La mano lo suma a lo largo
-   de la línea que recorrió; cada cuadro toda la rejilla se enfría
-   por la misma fracción. El número elige un carácter de una rampa
-   de glifos, del más ligero al más denso. La parte caliente titila
-   entre caracteres vecinos; el campo frío nunca. */
-(() => {
-  const RAMP = [" ", ".", ":", "-", "=", "+", "*", "#", "%", "@"];
-  /* densidad de cada carácter del dibujo: el punto en reposo */
-  const DENS = { "=": 0.2, "+": 0.32, "*": 0.46, "#": 0.63, "%": 0.81, "@": 1 };
-  const MONO = 'ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace';
-  const COLD = 0.04;   /* por debajo de este calor, la celda es el campo: un punto */
-  const RING_S = 2.2;  /* cuánto tarda el anillo en extenderse y apagarse, s */
-  const TRAIL = 1.2;   /* segundos para que la estela se enfríe */
-  const PULL = 0.4;    /* cuánto se inclinan los glifos hacia la mano */
-  const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
+        <!-- IDENTIDAD -->
+        <section
+          id="identidad"
+          data-screen-label="02 Identidad"
+          class="identity"
+        >
+          <div data-frame="" class="identity__frame">
+                  <div class="identity__copy">
+                    <div data-reveal="" class="identity__eyebrow">
+                      Identidad de marca
+                    </div>
+                    <h2 data-reveal="" class="identity__title">
+                      Una marca con mi nombre
+                    </h2>
+                    <p data-reveal="" class="identity__paragraph">
+                      Erika Polanco es una marca personal construida a partir de
+                      mi propia identidad como diseñadora gráfica e ilustradora.
+                      Utilizar mi nombre representa una decisión consciente de
+                      vincular directamente mi trabajo, mis valores y mi
+                      trayectoria profesional.
+                    </p>
+                    <p data-reveal="" class="identity__paragraph">
+                      La marca busca consolidar una identidad auténtica y
+                      reconocible que evolucione conmigo, permitiéndome explorar
+                      diferentes disciplinas creativas sin perder una voz
+                      propia.
+                    </p>
+                  </div>
+                  <div data-reveal="" class="identity__portrait-frame">
+                    <img
+                      src="assets/retrato-estampilla.png"
+                      alt="Erika de niña, en estampilla"
+                      class="identity__portrait"
+                    />
+                  </div>
+          </div>
+        </section>
 
-  const box = document.getElementById("wake");
-  const cv = document.getElementById("wake-canvas");
-  const g = cv.getContext("2d");
+        <!-- CONCEPTO -->
+        <section id="concepto" data-screen-label="03 Concepto" class="concept">
+          <div class="concept__intro">
+            <div class="concept__heading">
+              <div data-reveal="" class="section-eyebrow">
+                Concepto de marca
+              </div>
+              <h2 data-reveal="" class="concept__title">
+                El diseño como herramienta para comunicar
+              </h2>
+            </div>
+            <div class="concept__copy">
+              <p data-reveal="" class="text-paragraph">
+                Entiendo el diseño como una herramienta para comunicar ideas,
+                resolver necesidades y construir conexiones significativas. Cada
+                proyecto requiere una mirada particular, capaz de comprender su
+                contexto y transformar conceptos en soluciones visuales.
+              </p>
+              <p data-reveal="" class="text-paragraph">
+                No busco definir mi trabajo mediante un único estilo, sino a
+                través de la intención que sostiene cada decisión.
+              </p>
+            </div>
+          </div>
+          <div ref="{{ principlesRef }}" class="principles">
+            <svg class="principles__beetle" aria-hidden="true"></svg>
+            <div data-reveal="" class="principle-card--lavender">
+              <div class="principle-card__meta--purple">
+                <span>01</span><span>Principio</span>
+              </div>
+              <div class="principle-card__body">
+                <h3 class="principle-card__title">Versatilidad</h3>
+                <p class="principle-card__description">
+                  Cada proyecto pide una mirada particular, no una fórmula.
+                </p>
+              </div>
+            </div>
+            <div data-reveal="" class="principle-card--lime">
+              <div class="principle-card__meta--dark">
+                <span>02</span><span>Principio</span>
+              </div>
+              <div class="principle-card__body">
+                <h3 class="principle-card__title">Exploración</h3>
+                <p class="principle-card__description">
+                  Comprender el contexto antes de transformarlo en imagen.
+                </p>
+              </div>
+            </div>
+            <div data-reveal="" class="principle-card--indigo">
+              <div class="principle-card__meta--light">
+                <span>03</span><span>Principio</span>
+              </div>
+              <div class="principle-card__body">
+                <h3 class="principle-card__title--light">Criterio creativo</h3>
+                <p class="principle-card__description--light">
+                  Una razón detrás de cada propuesta.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
 
-  /* el dibujo, sin líneas vacías al principio ni al final */
-  const lines = document.getElementById("beetle").textContent.replace(/\s+$/, "").split("\n");
-  while (lines.length && !lines[0].trim()) lines.shift();
-  const rows = lines.length;
-  const cols = Math.max(...lines.map((l) => l.replace(/\s+$/, "").length));
-  const mask = new Float32Array(cols * rows);
-  for (let j = 0; j < rows; j++)
-    for (let i = 0; i < cols; i++) mask[j * cols + i] = DENS[lines[j][i]] || 0;
+        <!-- HISTORIA -->
+        <section
+          id="historia"
+          data-screen-label="04 Storytelling"
+          class="story"
+        >
+          <div data-frame="" class="story__frame">
+            <div data-reveal="" class="story__eyebrow">Storytelling</div>
+            <h2 data-reveal="" class="story__title">
+              Una identidad en constante evolución
+            </h2>
+            <div class="story__columns">
+              <p data-reveal="" class="text-paragraph">
+                Mi trayectoria en el diseño gráfico ha sido un proceso de
+                exploración y aprendizaje. La curiosidad me ha llevado a
+                trabajar con diferentes disciplinas, desde la ilustración y el
+                diseño editorial hasta la identidad visual y el packaging.
+              </p>
+              <p data-reveal="" class="text-paragraph">
+                Con el tiempo, he comprendido que ser versátil no significa
+                carecer de una identidad propia. Al contrario, mi identidad se
+                encuentra en la manera en que observo, investigo, experimento y
+                tomo decisiones.
+              </p>
+              <p data-reveal="" class="text-paragraph">
+                Erika Polanco representa ese recorrido: una diseñadora que
+                continúa aprendiendo, transformándose y construyendo una
+                práctica creativa donde cada proyecto tiene un propósito.
+              </p>
+            </div>
+            <p data-reveal="" class="story__quote">
+              No me define un solo estilo, sino mi manera de entender y resolver
+              el diseño.
+            </p>
+          </div>
+        </section>
 
-  const heat = new Float32Array(cols * rows);
-  const s = {
-    W: 0, H: 0, cw: 0, ch: 0, size: 0, ratio: 1, font: "",
-    hx: -999, hy: -999, lx: NaN, ly: NaN, near: 0, inside: false,
-    rings: [], deal: 0, tick: 0, raf: 0,
-    dots: [], hot: [],
-  };
+        <!-- PROYECTOS -->
+        <section
+          id="proyectos"
+          data-screen-label="05 Proyectos"
+          class="projects"
+        >
+          <div data-frame="" class="projects__cover">
+            <div class="projects__intro">
+              <div data-reveal="" class="projects__eyebrow">
+                Conoce algunos de mis 
+              </div>
+              <h2 data-reveal="" class="projects__title">Proyectos</h2>
+              <p data-reveal="" class="projects__description">
+                IDENTIDAD VISUAL, ILUSTRACIÓN, DISEÑO EDITORIAL, DE INFORMACIÓN Y PACKAGING
+              </p>
+            </div>
+          </div>
+          <!-- Disciplinas: scripts.js construye los marcos y el carrusel de proyectos. -->
+          <div ref="{{ disciplinesRef }}" class="disciplines"></div>
+        </section>
 
-  /* colores: el campo va de lila (tenue) a principal (denso); la
-     estela caliente se oscurece hacia el oscuro (o aclara en modo oscuro) */
-  const hex = (h) => [1, 3, 5].map((k) => parseInt(h.slice(k, k + 2), 16));
-  const mix = (a, b, t) => `rgb(${a.map((v, k) => Math.round(v + (b[k] - v) * t)).join(",")})`;
-  const darkMQ = window.matchMedia("(prefers-color-scheme: dark)");
-  const palette = () => {
-    const P = hex("#5E4F9C"), D = hex("#332E79"), L = hex("#B9B3D5"), Wh = [255, 255, 255];
-    const dark = darkMQ.matches;
-    const [fa, fb] = dark ? [P, L] : [L, P];
-    const [ha, hb] = dark ? [L, Wh] : [P, D];
-    s.field = (m) => mix(fa, fb, clamp((m - 0.2) / 0.8, 0, 1) * 0.85 + 0.15);
-    s.dotColor = new Array(cols * rows);
-    for (let k = 0; k < mask.length; k++) if (mask[k] > 0) s.dotColor[k] = s.field(mask[k]);
-    s.hot = RAMP.map((_, i) => mix(ha, hb, i / (RAMP.length - 1)));
-  };
-
-  /* la rejilla al tamaño de la caja */
-  const build = () => {
-    const r = Math.min(2, window.devicePixelRatio || 1);
-    s.ratio = r;
-    const W = box.clientWidth;
-    s.size = W / (cols * 0.6);
-    s.cw = W / cols;
-    s.ch = s.size * 1.18;
-    s.W = W;
-    s.H = Math.round(rows * s.ch);
-    cv.width = Math.round(W * r);
-    cv.height = Math.round(s.H * r);
-    cv.style.height = s.H + "px";
-    s.font = `600 ${s.size}px ${MONO}`;
-  };
-
-  /* calor dejado en la rejilla, en un círculo suave alrededor de un punto */
-  const stamp = (x, y, rad, amt) => {
-    const c0 = Math.max(0, Math.floor((x - rad) / s.cw));
-    const c1 = Math.min(cols - 1, Math.ceil((x + rad) / s.cw));
-    const r0 = Math.max(0, Math.floor((y - rad) / s.ch));
-    const r1 = Math.min(rows - 1, Math.ceil((y + rad) / s.ch));
-    const R2 = rad * rad;
-    for (let j = r0; j <= r1; j++) {
-      const dy = (j + 0.5) * s.ch - y;
-      for (let i = c0; i <= c1; i++) {
-        const dx = (i + 0.5) * s.cw - x;
-        const q = (dx * dx + dy * dy) / R2;
-        if (q >= 1) continue;
-        const t = 1 - q;
-        const k = j * cols + i;
-        heat[k] = Math.min(1, heat[k] + amt * t * t);
-      }
-    }
-  };
-
-  /* el ancho de la estela, proporcional a la celda */
-  const radius = () => Math.max(26, s.cw * 7);
-
-  const paint = () => {
-    if (!s.W) return;
-    g.setTransform(s.ratio, 0, 0, s.ratio, 0, 0);
-    g.clearRect(0, 0, s.W, s.H);
-    const rx = s.cw * 0.46, ry = s.ch * 0.44;
-    g.font = s.font;
-    g.textAlign = "center";
-    g.textBaseline = "middle";
-    const top = RAMP.length - 1;
-    const lean = PULL * s.near;
-    const rad = radius();
-    const far2 = (rad * 2) ** 2;
-    const R2 = rad * rad;
-    const band = s.cw * 4;
-    const rings = s.rings.map((r) => {
-      const p = r.t / RING_S;
-      const e = 1 - Math.pow(1 - p, 3);
-      return { x: r.x, y: r.y, R: 8 + e * s.W * 0.75, amp: 0.6 * (1 - p) * (1 - p) * Math.min(1, p * 6) };
-    });
-    const maxLean = s.cw * 2.3;
-    for (let j = 0; j < rows; j++) {
-      const y = (j + 0.5) * s.ch;
-      for (let i = 0; i < cols; i++) {
-        const k = j * cols + i;
-        const m = mask[k];
-        if (m <= 0) continue;
-        const cx = (i + 0.5) * s.cw;
-        let h = heat[k];
-        /* el calor de la propia mano, calculado cada cuadro: nunca se enfría */
-        if (s.near > 0.002) {
-          const q = ((cx - s.hx) ** 2 + (y - s.hy) ** 2) / R2;
-          if (q < 1) h = Math.max(h, 0.95 * s.near * (1 - q) * (1 - q));
-        }
-        for (const r of rings) {
-          const d = (Math.hypot(cx - r.x, y - r.y) - r.R) / band;
-          if (d > -2.5 && d < 2.5) h += r.amp * Math.exp(-d * d);
-        }
-        h *= 0.55 + 0.45 * m;
-        const v = Math.min(1, h);
-        let u = v * top + 0.5;
-        if (h > COLD) u += (hash(k, s.deal) - 0.5) * 1.6 * Math.min(1, h * 2);
-        const idx = clamp(Math.floor(u), 1, top);
-        let x = cx, yy = y;
-        if (lean > 0.002) {
-          const dx = s.hx - x, dy = s.hy - yy;
-          const d2 = dx * dx + dy * dy;
-          if (d2 < far2) {
-            const f = 1 - d2 / far2;
-            const d = Math.sqrt(d2) || 1;
-            const mv = Math.min(d * 0.6, maxLean * lean * f * f);
-            x += (dx / d) * mv;
-            yy += (dy / d) * mv;
-          }
-        }
-        if (h <= COLD || idx === 1) {
-          const sq = Math.sqrt(m);
-          g.fillStyle = s.dotColor[k];
-          g.beginPath();
-          g.ellipse(x, yy, Math.max(0.45, rx * sq), Math.max(0.45, ry * sq), 0, 0, Math.PI * 2);
-          g.fill();
-          continue;
-        }
-        g.fillStyle = s.hot[idx];
-        g.fillText(RAMP[idx], x, yy);
-      }
-    }
-  };
-
-  /* el ciclo corre solo mientras la estela está tibia o la mano se mueve */
-  const run = () => {
-    if (s.raf) return;
-    let prev = performance.now();
-    const step = (t) => {
-      const dt = Math.min(0.05, Math.max(0, (t - prev) / 1000));
-      prev = t;
-      const keep = Math.exp((-dt * 3) / TRAIL);
-      let warm = 0;
-      for (let k = 0; k < heat.length; k++) {
-        const h = heat[k] * keep;
-        heat[k] = h < 0.003 ? 0 : h;
-        if (h > warm) warm = h;
-      }
-      s.rings = s.rings.filter((r) => (r.t += dt) < RING_S);
-      s.near += ((s.inside ? 1 : 0) - s.near) * (1 - Math.pow(0.004, dt));
-      s.tick += dt;
-      if (s.tick > 0.07) { s.tick = 0; s.deal++; }
-      paint();
-      const still = warm === 0 && !s.rings.length && Math.abs((s.inside ? 1 : 0) - s.near) < 0.004;
-      s.raf = still ? 0 : requestAnimationFrame(step);
-    };
-    s.raf = requestAnimationFrame(step);
-  };
-
-  const where = (e) => {
-    const r = cv.getBoundingClientRect();
-    return { x: e.clientX - r.left, y: e.clientY - r.top };
-  };
-
-  /* la mano estampa a lo largo de toda la línea desde el último cuadro */
-  const move = (e) => {
-    const { x, y } = where(e);
-    const rad = radius();
-    if (Number.isNaN(s.lx)) { s.lx = x; s.ly = y; }
-    const d = Math.hypot(x - s.lx, y - s.ly);
-    const n = Math.max(1, Math.ceil(d / (rad / 3)));
-    for (let k = 1; k <= n; k++) {
-      const f = k / n;
-      stamp(s.lx + (x - s.lx) * f, s.ly + (y - s.ly) * f, rad, 0.5);
-    }
-    s.lx = x; s.ly = y; s.hx = x; s.hy = y;
-    s.inside = true;
-    run();
-  };
-  const leave = () => { s.inside = false; s.lx = NaN; run(); };
-
-  box.addEventListener("pointerenter", (e) => { s.lx = NaN; move(e); });
-  box.addEventListener("pointermove", move);
-  box.addEventListener("pointerleave", leave);
-  box.addEventListener("pointercancel", leave);
-  box.addEventListener("pointerup", (e) => { if (e.pointerType !== "mouse") leave(); });
-  box.addEventListener("pointerdown", (e) => {
-    const { x, y } = where(e);
-    s.rings.push({ x, y, t: 0 });
-    if (e.pointerType !== "mouse") { s.lx = NaN; move(e); }
-    run();
-  });
-
-  const refresh = () => { build(); paint(); };
-  palette();
-  refresh();
-  new ResizeObserver(refresh).observe(box);
-  darkMQ.addEventListener("change", () => { palette(); paint(); });
-
-  /* un 0..1 estable por celda y por reparto: ruido que dura unos cuadros */
-  function hash(k, n) {
-    let h = (k * 374761393 + n * 668265263) | 0;
-    h = Math.imul(h ^ (h >>> 13), 1274126177);
-    return ((h ^ (h >>> 16)) >>> 0) / 4294967296;
-  }
-})();
-</script>
-</body>
+        <!-- CONTACTO -->
+        <section id="contacto" data-screen-label="06 Contacto" class="contact">
+          <div data-frame="" class="contact__frame">
+            <div class="contact__header">
+              <div data-reveal="" class="contact__eyebrow">
+                Diseñadora gráfica &nbsp;|&nbsp; Ilustradora
+              </div>
+              <a
+                data-reveal=""
+                href="mailto:hola@erikapolanco.com"
+                class="contact__button"
+                >Escríbeme</a
+              >
+            </div>
+            <div class="contact__message">
+              <h2 class="contact__title">
+                <span class="contact__title-mask"
+                  ><span data-rise="" class="contact__rise">Evolucionemos</span></span>
+                  <span class="contact__title-mask"><span data-rise="" class="contact__rise">tus ideas</span></span>
+              </h2>
+              <a
+                data-reveal=""
+                href="mailto:hola@erikapolanco.com"
+                class="contact__email"
+                >hola@erikapolanco.com</a
+              >
+            </div>
+            <div class="contact__footer">
+              <div data-reveal="" class="contact__links">
+                <a href="#identidad" class="contact__link">Identidad</a>
+                <a href="#concepto" class="contact__link">Concepto</a>
+                <a href="#historia" class="contact__link">Historia</a>
+                <a href="#proyectos" class="contact__link">Proyectos</a>
+              </div>
+              <div data-reveal="" class="contact__links">
+                <a href="https://www.instagram.com/erikapolanco_crea?rpxt=NGlpZnRuaThidjF5" class="contact__link" target="_blank" rel="noopener noreferrer">Instagram</a>
+              </div>
+              <div data-reveal="" class="contact__credits">
+                <span>© 2026 Erika Polanco</span>
+              </div>
+              <nav class="contact__legal" aria-label="Información legal">
+                <button type="button" data-legal="terminos">Términos y condiciones</button>
+                <button type="button" data-legal="copyright">Propiedad intelectual / Copyright</button>
+                <button type="button" data-legal="privacidad">Política de privacidad</button>
+                <button type="button" data-legal="cookies">Política de cookies</button>
+                <button type="button" data-cookies="preferencias">Preferencias de cookies</button>
+              </nav>
+            </div>
+            <canvas
+              ref="{{ asciiRef }}"
+              role="img"
+              aria-label="Escarabajo en ASCII"
+              class="contact__beetle"
+            ></canvas>
+          </div>
+        </section>
+      </div>
+    </x-dc>
+    <!-- Puente del runtime: la implementación está en scripts.js. -->
+    <script
+      type="text/x-dc"
+      data-dc-script
+      data-props='{"cursorSize":{"editor":"range","min":28,"max":120,"step":4,"unit":"px","default":48,"tsType":"number"},"heroFont":{"editor":"enum","options":["bricolage","syne","instrument","unbounded","nunito"],"default":"bricolage","tsType":"string"}}'
+    >
+      const Component = window.createPortfolioComponent(DCLogic, React);
+    </script>
+  </body>
 </html>
